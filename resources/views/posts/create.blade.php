@@ -5,14 +5,15 @@
 
 <h1> Create new post </h1>
 
-<form method="GET">
-    <label>
+<form action="{{ route ('posts.store')}}" method="POST">
+    @csrf
+    <label >
         Title <br>
-        <input type="text">
+        <input name="title" type="text">
     </label>    <br>
     <label>
         Body<br>
-        <textarea></textarea>
+        <textarea name="body"></textarea>
     </label> <br>
     <button type="submit">Send</button>
 </form>
