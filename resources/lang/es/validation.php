@@ -3,7 +3,7 @@
 return [
     'required' => 'El campo :attribute es obligatorio.',
     'attributes' => [
-        'title' => 'titulo',
+        'title' => 'título',
         'body' => 'contenido'
     ]
 ];
