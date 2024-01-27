@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SavePostRequest;
 
 
 class PostController extends Controller {
@@ -16,26 +17,23 @@ class PostController extends Controller {
     {
         return view('posts.show',['post' => $post]);
     }
-
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',['post' => new Post]);
     }
-
-    public function store(Request $request)
+    public function store(SavePostRequest $request)
     {
-        $request-> validate([
-            'title'=> ['required', 'min:4'],
-            'body'=> ['required']
-        ]);
-
-        $post = new Post;
+        //laravel valida el dato a lo que llega a la funcion
+        //si pasa se ejecuta el codigo sino chau
+        /* $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->save();
-
+        $post->save(); 
+        esto de aqui se reemplazo con el codigo de abajo
+        */
+        
+        Post::create ($request -> validated());
         session()->flash('status','Post created!');
-
         return to_route('posts.index');
     }
     public function edit(Post $post){
@@ -43,17 +41,14 @@ class PostController extends Controller {
     }
 
 
-    public function update(Request $request,Post $post)
-    {
-        $request-> validate([
-            'title'=> ['required', 'min:4'],
-            'body'=> ['required']
-        ]);
+    public function update(SavePostRequest $request,Post $post)    {
 
-        
-        $post->title = $request->input('title');
+               
+       /*  $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->save();
+        $post->save(); */
+
+        $post->update($request -> validated());
 
         session()->flash('status','Post updated!');
 

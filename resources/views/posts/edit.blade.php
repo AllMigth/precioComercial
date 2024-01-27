@@ -7,24 +7,7 @@
 
 <form action="{{ route ('posts.update', $post)}}" method="POST">
     @csrf @method('PATCH')
-    <label >
-        Title <br>
-        <input name="title" type="text" value="{{old('title',$post->title)}}">
-    </label>   
-    @error('title')
-    <br>
-    <small style="color: red"> {{ $message }} </small>
-    @enderror
-    <br>
-    <label>
-        Body <br>
-        <textarea name="body">{{old('body',$post->body)}}</textarea>
-    </label> 
-    @error('body')
-    <br>
-    <small style="color: red"> {{ $message }} </small>
-    @enderror
-    <br>
+    @include('posts.form-fields');
     <button type="submit">Send</button>
 </form>
 
